@@ -1,2 +1,2 @@
-# shiift.github.io
-My github pages site
+# songdickson.github.io
+Family github pages site

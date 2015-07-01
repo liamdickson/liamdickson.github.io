@@ -7,15 +7,10 @@ var TopWell = module.exports = React.createClass({
 	render: function () {
 		return (
 			<Well>
-			    <h1>William Song Dickson</h1>
+			    <h1>The Song Dickson Family</h1>
 			    <Row>
-			        <Col md={3} className='text-center'>
-			            <img width='175px' height='175px' src='images/faceshot.JPG' className='img-rounded' />
-			        </Col>
-			        <Col md={9}>
-			            <blockquote>&quot;Seeking an opportunity to further develop my skills as an engineer through real-world experience in
-			            software development and research while working toward my goal of becoming a software engineering manager&quot;</blockquote>
-			            <Button bsStyle='primary'>My Resume</Button>
+			        <Col>
+			            <p className={'padded-text'}>Welcome to our website. The purpose of this site is to allow us to share our family photos with others. Thank you.</p>
 			        </Col>
 			    </Row>
 			</Well>

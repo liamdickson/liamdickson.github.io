@@ -2,14 +2,14 @@
 
 var React = require('react');
 var TopWell = require('./TopWell');
-var WorkWell = require('./WorkWell');
+var Photoswipe = require('./Photoswipe');
 
 var PageNav = module.exports = React.createClass({
 	render: function () {
 		return (
 			<div className='pageBody container'>
 				<TopWell />
-				<WorkWell />
+				<Photoswipe />
 			</div>
 		);
 	}
