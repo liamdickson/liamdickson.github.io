@@ -25655,7 +25655,7 @@
 	      this.props.children
 	    );
 	    // I can't think of another way to not break back compat while defaulting container
-	    if (show != null) {
+	    if (!this.props.__isUsedInModalTrigger && show != null) {
 	      return _react2['default'].createElement(
 	        _Portal2['default'],
 	        { container: props.container },
@@ -26538,6 +26538,8 @@
 	
 	var _utilsCreateContextWrapper2 = _interopRequireDefault(_utilsCreateContextWrapper);
 	
+	var _OverlayMixin = __webpack_require__(207);
+	
 	function createHideDepreciationWrapper(hide) {
 	  return function () {
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -26552,6 +26554,8 @@
 	
 	var ModalTrigger = _react2['default'].createClass({
 	  displayName: 'ModalTrigger',
+	
+	  mixins: [_OverlayMixin.OverlayMixin],
 	
 	  propTypes: {
 	    modal: _react2['default'].PropTypes.node.isRequired,
@@ -26589,29 +26593,17 @@
 	    });
 	  },
 	
-	  componentDidMount: function componentDidMount() {
-	    this._overlay = document.createElement('div');
-	    _react2['default'].render(this.getOverlay(), this._overlay);
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    _react2['default'].unmountComponentAtNode(this._overlay);
-	    this._overlay = null;
-	    clearTimeout(this._hoverDelay);
-	  },
-	
-	  componentDidUpdate: function componentDidUpdate() {
-	    _react2['default'].render(this.getOverlay(), this._overlay);
-	  },
-	
-	  getOverlay: function getOverlay() {
+	  renderOverlay: function renderOverlay() {
 	    var modal = this.props.modal;
 	
+	    if (!this.state.isOverlayShown) {
+	      return _react2['default'].createElement('span', null);
+	    }
+	
 	    return (0, _react.cloneElement)(modal, {
-	      show: this.state.isOverlayShown,
 	      onHide: this.hide,
 	      onRequestHide: createHideDepreciationWrapper(this.hide),
-	      container: modal.props.container || this.props.container
+	      __isUsedInModalTrigger: true
 	    });
 	  },
 	
@@ -29667,13 +29659,37 @@
 	var PageNav = module.exports = React.createClass({
 		displayName: 'exports',
 	
+		openPhotoswipe: function openPhotoswipe(e) {
+			if (e) {
+				e.preventDefault();
+			}
+			var pswpElement = document.querySelectorAll('.pswp')[0];
+			// build items array
+			var items = [{
+				src: 'https://lh3.googleusercontent.com/-lXmBoaWzAAU/Unc9N6-zNZI/AAAAAAAAAPE/e_KqkD3zhNU/DSC_0209.JPG',
+				w: 512,
+				h: 511
+			}, {
+				src: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg',
+				w: 1024,
+				h: 683
+			}];
+			var options = {
+				history: false,
+				focus: false,
+				showAnimationDuration: 0,
+				hideAnimationDuration: 0
+			};
+			var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+			gallery.init();
+		},
 		render: function render() {
 			return React.createElement(
 				'div',
 				{ className: 'pageBody container' },
 				React.createElement(TopWell, null),
-				React.createElement(PicasaAlbum, null),
-				React.createElement(Photoswipe, null)
+				React.createElement(PicasaAlbum, { openPhotoswipe: this.openPhotoswipe }),
+				React.createElement(Photoswipe, { openPhotoswipe: this.openPhotoswipe })
 			);
 		}
 	});
@@ -29784,7 +29800,7 @@
 				{ className: 'well' },
 				React.createElement(
 					'a',
-					{ href: photo },
+					{ href: '#', onClick: this.props.openPhotoswipe },
 					React.createElement('img', { src: url })
 				)
 			);
@@ -29802,34 +29818,13 @@
 	var Photoswipe = module.exports = React.createClass({
 		displayName: 'exports',
 	
-		openPhotoSwipe: function openPhotoSwipe() {
-			var pswpElement = document.querySelectorAll('.pswp')[0];
-			// build items array
-			var items = [{
-				src: 'https://lh3.googleusercontent.com/-lXmBoaWzAAU/Unc9N6-zNZI/AAAAAAAAAPE/e_KqkD3zhNU/DSC_0209.JPG',
-				w: 512,
-				h: 511
-			}, {
-				src: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg',
-				w: 1024,
-				h: 683
-			}];
-			var options = {
-				history: false,
-				focus: false,
-				showAnimationDuration: 0,
-				hideAnimationDuration: 0
-			};
-			var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-			gallery.init();
-		},
 		render: function render() {
 			return React.createElement(
 				'div',
 				null,
 				React.createElement(
 					'button',
-					{ id: 'btn', onClick: this.openPhotoSwipe },
+					{ id: 'btn', onClick: this.props.openPhotoswipe },
 					'Open Photos'
 				),
 				React.createElement(

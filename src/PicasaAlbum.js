@@ -49,6 +49,6 @@ var PicasaAlbum = module.exports = React.createClass({
 			url = this.state.urls ? this.state.urls.url : '';
 			photo = this.state.urls.photo ? this.state.urls.photo : '';
 		}
-		return <div className="well"><a href={photo}><img src={url} /></a></div>
+		return <div className="well"><a href='#' onClick={this.props.openPhotoswipe}><img src={url} /></a></div>
 	}
 })
