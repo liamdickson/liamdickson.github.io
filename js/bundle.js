@@ -29661,7 +29661,8 @@
 	
 	var React = __webpack_require__(2);
 	var TopWell = __webpack_require__(241);
-	var Photoswipe = __webpack_require__(242);
+	var PicasaAlbum = __webpack_require__(242);
+	var Photoswipe = __webpack_require__(243);
 	
 	var PageNav = module.exports = React.createClass({
 		displayName: 'exports',
@@ -29671,6 +29672,7 @@
 				'div',
 				{ className: 'pageBody container' },
 				React.createElement(TopWell, null),
+				React.createElement(PicasaAlbum, null),
 				React.createElement(Photoswipe, null)
 			);
 		}
@@ -29728,6 +29730,75 @@
 	
 	var React = __webpack_require__(2);
 	
+	// Indexes to standard thumbnails returned by Picasa API
+	var THUMB_SMALL = 0;
+	var THUMB_MEDIUM = 1;
+	var THUMB_LARGE = 2;
+	
+	// Sizes for photographs to be displayed by slimbox
+	var PHOTO_SMALL = 640;
+	var PHOTO_MEDIUM = 800;
+	var PHOTO_LARGE = 1024;
+	
+	var DEFAULT_MARGIN = 5;
+	var DEFAULT_THUMBSIZE = THUMB_MEDIUM;
+	var DEFAULT_PHOTOSIZE = PHOTO_MEDIUM;
+	
+	var PicasaAlbum = module.exports = React.createClass({
+		displayName: 'exports',
+	
+		loadPicasaAlbum: function loadPicasaAlbum(userid, albumid, thumbsize, photosize, margin) {
+			var _this = this;
+	
+			var ts = thumbsize || DEFAULT_THUMBSIZE;
+			var ps = photosize || DEFAULT_PHOTOSIZE;
+			var m = margin || DEFAULT_MARGIN;
+	
+			var $j = jQuery.noConflict();
+			$j.getJSON('https://picasaweb.google.com/data/feed/base/user/' + userid + '/album/' + albumid + '?kind=photo&access=public&alt=json-in-script&callback=?', function (data, status) {
+				var albumTitle = data.feed.title.$t;
+				var albumSubtitle = data.feed.subtitle.$t;
+	
+				data.feed.entry.forEach(function (pic, i) {
+					var thumb = pic.media$group.media$thumbnail[ts];
+					var url = thumb.url;
+					var photo = pic.media$group.media$content[0];
+					var desc = pic.media$group.media$description.$t;
+					_this.setState({ urls: { url: url, photo: photo.url } });
+				});
+			});
+		},
+		componentDidMount: function componentDidMount() {
+			this.loadPicasaAlbum('liamsdickson', 'ProfilePhotos03');
+		},
+		render: function render() {
+			// FIX: Needs to be refactored to use stores and more views.
+			var url = '';
+			var photo = '';
+			if (this.state) {
+				url = this.state.urls ? this.state.urls.url : '';
+				photo = this.state.urls.photo ? this.state.urls.photo : '';
+			}
+			return React.createElement(
+				'div',
+				{ className: 'well' },
+				React.createElement(
+					'a',
+					{ href: photo },
+					React.createElement('img', { src: url })
+				)
+			);
+		}
+	});
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	
 	var Photoswipe = module.exports = React.createClass({
 		displayName: 'exports',
 	
@@ -29763,7 +29834,7 @@
 				),
 				React.createElement(
 					'div',
-					{ className: 'pswp', tabindex: '-1', role: 'dialog', 'aria-hidden': 'true' },
+					{ className: 'pswp', tabIndex: '-1', role: 'dialog', 'aria-hidden': 'true' },
 					React.createElement('div', { className: 'pswp__bg' }),
 					React.createElement(
 						'div',

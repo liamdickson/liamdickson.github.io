@@ -2,6 +2,7 @@
 
 var React = require('react');
 var TopWell = require('./TopWell');
+var PicasaAlbum = require('./PicasaAlbum');
 var Photoswipe = require('./Photoswipe');
 
 var PageNav = module.exports = React.createClass({
@@ -9,6 +10,7 @@ var PageNav = module.exports = React.createClass({
 		return (
 			<div className='pageBody container'>
 				<TopWell />
+				<PicasaAlbum />
 				<Photoswipe />
 			</div>
 		);

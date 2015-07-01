@@ -31,7 +31,7 @@ var Photoswipe = module.exports = React.createClass({
 		return(
 			<div>
 			<button id="btn" onClick={this.openPhotoSwipe}>Open Photos</button>
-			    <div className="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+			    <div className="pswp" tabIndex="-1" role="dialog" aria-hidden="true">
 			        <div className="pswp__bg"></div>
 			        <div className="pswp__scroll-wrap">
 			            <div className="pswp__container">
