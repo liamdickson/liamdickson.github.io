@@ -37,8 +37,8 @@ var PageNav = module.exports = React.createClass({
 		return (
 			<div className='pageBody container'>
 				<TopWell />
-				<PicasaAlbum openPhotoswipe={this.openPhotoswipe} />
-				<Photoswipe openPhotoswipe={this.openPhotoswipe} />
+				<PicasaAlbum {...this.props} openPhotoswipe={this.openPhotoswipe} />
+				<Photoswipe {...this.props} openPhotoswipe={this.openPhotoswipe} />
 			</div>
 		);
 	}

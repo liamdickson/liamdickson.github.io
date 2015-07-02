@@ -11,8 +11,39 @@ class Store extends BaseStore {
         this.model.on('change', this.emitChange, this);
     }
 
+    addChangeListener(callback) {
+        this.on('change', callback);
+    }
+
     getModel() {
         return this.model;
+    }
+
+    loadPictures() {
+        this.loading(true);
+        var ts = config.DEFAULT_THUMBSIZE;
+        var ps = config.DEFAULT_PHOTOSIZE;
+        var m = config.DEFAULT_MARGIN;
+
+        var $j = jQuery.noConflict();
+        $j.getJSON("https://picasaweb.google.com/data/feed/base/user/" + config.userID +
+            "/album/" + config.albumID + "?kind=photo&access=public&alt=json-in-script&callback=?",
+        (data, status)=>{
+            var albumTitle = data.feed.title.$t
+            var albumSubtitle = data.feed.subtitle.$t
+
+            data.feed.entry.forEach( (pic, i)=>{
+                var thumb = pic.media$group.media$thumbnail[ts];
+                var url = thumb.url;
+                var photo = pic.media$group.media$content[0];
+                var desc = pic.media$group.media$description.$t;
+
+                var pictures = this.model.pictures;
+                pictures[url] = {thumb, photo, desc};
+                this.set({pictures});
+            });
+        });
+        this.loading(false);
     }
 
     loading(bool) {
@@ -28,7 +59,8 @@ Store.storeName = 'Store';
 Store.handlers = {
     'navigate' : 'set',
     'set' : 'set',
-    'loading': 'loading'
+    'loading' : 'loading',
+    'loadPictures' : 'loadPictures'
 };
 
 module.exports = Store;

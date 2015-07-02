@@ -6,15 +6,13 @@ var config = require('./config');
 module.exports = AState.extend({
     extraProperties: 'reject',
     props: {
-        items: {
-            'type': 'object'
+        pictures: {
+            'type': 'object',
+            'default': function () { return {}; }
         },
         isLoading: {
             'type': 'boolean',
             'default': true
         }
-    },
-    toUrlString() {
-        return `/`;
     }
 });
