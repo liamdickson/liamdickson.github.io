@@ -1,14 +1,13 @@
 'use strict';
 
-var State = require('ampersand-state');
+var AState = require('ampersand-state');
 var config = require('./config');
 
-module.exports = State.extend({
+module.exports = AState.extend({
     extraProperties: 'reject',
     props: {
         items: {
-            'type': 'object',
-            'default': {}
+            'type': 'object'
         },
         isLoading: {
             'type': 'boolean',

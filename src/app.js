@@ -1,13 +1,13 @@
 'use strict';
 
 var {Fluxible} = require('fluxible');
-var PageWrapper = require('./PageWrapper');
+var PageWrapper = require('./components/PageWrapper');
 var Store = require('./Store');
 
 var app = new Fluxible({
     component: PageWrapper
 });
 
-app.registerStore(BeastMasterStore);
+app.registerStore(Store);
 
 module.exports = app;

@@ -2,9 +2,7 @@
 
 var BaseStore = require('fluxible/addons/BaseStore');
 var State = require('./State');
-var idConverter = require('./components/mixins/idConverter');
 var config = require('./config.js');
-var $ = require('jquery');
 
 class Store extends BaseStore {
     constructor(dispatcher) {
