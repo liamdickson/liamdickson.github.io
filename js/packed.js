@@ -25853,7 +25853,7 @@
 		displayName: 'exports',
 	
 		render: function render() {
-			return React.createElement(Navbar, { inverse: true, className: 'navbar-fixed-top', brand: 'SongDickson.com', toggleNavKey: 0 });
+			return React.createElement(Navbar, { inverse: true, brand: 'SongDickson.com' });
 		}
 	});
 
