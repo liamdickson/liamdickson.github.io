@@ -47,20 +47,6 @@ var PageNav = module.exports = React.createClass({
 			});
 		});
 
-
-		// var items = [
-		//     {
-		//         src: 'https://lh3.googleusercontent.com/-lXmBoaWzAAU/Unc9N6-zNZI/AAAAAAAAAPE/e_KqkD3zhNU/DSC_0209.JPG',
-		//         w: 512,
-		//         h: 511
-		//     },
-		//     {
-		//         src: 'https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg',
-		//         w: 1024,
-		//         h: 683
-		//     }
-		// ];
-
 		var options = {
 		    history: false,
 		    focus: false,
