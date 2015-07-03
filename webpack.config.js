@@ -9,7 +9,7 @@ module.exports = {
     entry: ['./entry.js'],
     output: {
         path: __dirname + '/js/',
-        filename: 'bundle.js'
+        filename: 'packed.js'
     },
     resolve: {
         extensions: ['', '.js', '.json', '.jsx'],
