@@ -11,12 +11,14 @@ class Store extends BaseStore {
         this.model.on('change', this.emitChange, this);
     }
 
-    addChangeListener(callback) {
-        this.on('change', callback);
-    }
-
     getModel() {
         return this.model;
+    }
+
+    modifyUrl(URL, size) {
+        var mURL = URL.split('/');
+        mURL[mURL.length-2] = size;
+        return mURL.join('/');
     }
 
     loadPictures() {
@@ -35,15 +37,15 @@ class Store extends BaseStore {
             data.feed.entry.forEach( (pic, i)=>{
                 var thumb = pic.media$group.media$thumbnail[ts];
                 var url = thumb.url;
-                var photo = pic.media$group.media$content[0];
+                var photo = this.modifyUrl(thumb.url,'s0');
                 var desc = pic.media$group.media$description.$t;
 
                 var pictures = this.model.pictures;
                 pictures[url] = {thumb, photo, desc};
-                this.set({pictures});
+                this.model.set({pictures});
             });
+            this.loading(false);
         });
-        this.loading(false);
     }
 
     loading(bool) {

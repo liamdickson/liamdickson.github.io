@@ -1,20 +1,25 @@
 'use strict';
 
 var React = require('react');
-var actions = require('../Actions');
+var _ = require('underscore')
+var {Well, Col, Row} = require('react-bootstrap');
 
 var PicasaAlbum = module.exports = React.createClass({
-	loadPicasaAlbum: function(userid, albumid, thumbsize, photosize, margin) {
-	},
-	componentDidMount: function () {
-		this.props.context.executeAction(actions.loadPictures);
-	},
 	render: function() {
-		if (this.props.model.isLoading) {
-			return <div>Is Loading...</div>;
-		}
-		var url = '';
-		console.log(this.props.model.pictures);
-		return <div className="well"><a href='#' onClick={this.props.openPhotoswipe}><img src={url} /></a></div>
+		return (
+			<Well>
+				<Row>
+				{_.map(this.props.model.pictures, (item, url)=>{
+					return (
+						<Col key={url} md={4} xs={6} className="thumb">
+							<a className="thumbnail" href={item.photo}>
+								<img className="img-responsive" src={url} onClick={this.props.openPhotoswipe} />
+							</a>
+						</Col>
+					);
+				})}
+				</Row>
+			</Well>
+		)
 	}
 });

@@ -6,7 +6,6 @@ var Photoswipe = module.exports = React.createClass({
 	render: function () {
 		return(
 			<div>
-			<button id="btn" onClick={this.props.openPhotoswipe}>Open Photos</button>
 			    <div className="pswp" tabIndex="-1" role="dialog" aria-hidden="true">
 			        <div className="pswp__bg"></div>
 			        <div className="pswp__scroll-wrap">
@@ -44,6 +43,7 @@ var Photoswipe = module.exports = React.createClass({
 		            </div>
 			    </div>
 		    </div>
-		)
+		);
+		// <button id="btn" onClick={this.props.openPhotoswipe}>Open Photos</button>
 	}
 })

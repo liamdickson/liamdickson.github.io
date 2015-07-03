@@ -2,7 +2,7 @@
 
 module.exports = {
 	userID: "liamsdickson",
-	albumID: "ProfilePhotos03",
+	albumID: "TestAlbum",
 	// Indexes to standard thumbnails returned by Picasa API
 	THUMB_SMALL: 0,
 	THUMB_MEDIUM: 1,
@@ -11,8 +11,8 @@ module.exports = {
 	PHOTO_SMALL: 640,
 	PHOTO_MEDIUM: 800,
 	PHOTO_LARGE: 1024,
-	DEFAULT_MARGIN: 5,
 	// From above
-	DEFAULT_THUMBSIZE: 1,
-	DEFAULT_PHOTOSIZE: 800
+	DEFAULT_MARGIN: 5,
+	DEFAULT_THUMBSIZE: 2,
+	DEFAULT_PHOTOSIZE: 1024
 }
