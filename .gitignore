@@ -2,5 +2,3 @@ oldsite
 node_modules
 .DS_Store
 familysite.*
-js/bundle.js
-js/bundle.js.map
