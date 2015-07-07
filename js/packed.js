@@ -31036,7 +31036,7 @@
 	      this.props.children
 	    );
 	    // I can't think of another way to not break back compat while defaulting container
-	    if (show != null) {
+	    if (!this.props.__isUsedInModalTrigger && show != null) {
 	      return _react2['default'].createElement(
 	        _Portal2['default'],
 	        { container: props.container },
@@ -31919,6 +31919,8 @@
 	
 	var _utilsCreateContextWrapper2 = _interopRequireDefault(_utilsCreateContextWrapper);
 	
+	var _OverlayMixin = __webpack_require__(250);
+	
 	function createHideDepreciationWrapper(hide) {
 	  return function () {
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -31933,6 +31935,8 @@
 	
 	var ModalTrigger = _react2['default'].createClass({
 	  displayName: 'ModalTrigger',
+	
+	  mixins: [_OverlayMixin.OverlayMixin],
 	
 	  propTypes: {
 	    modal: _react2['default'].PropTypes.node.isRequired,
@@ -31970,29 +31974,17 @@
 	    });
 	  },
 	
-	  componentDidMount: function componentDidMount() {
-	    this._overlay = document.createElement('div');
-	    _react2['default'].render(this.getOverlay(), this._overlay);
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    _react2['default'].unmountComponentAtNode(this._overlay);
-	    this._overlay = null;
-	    clearTimeout(this._hoverDelay);
-	  },
-	
-	  componentDidUpdate: function componentDidUpdate() {
-	    _react2['default'].render(this.getOverlay(), this._overlay);
-	  },
-	
-	  getOverlay: function getOverlay() {
+	  renderOverlay: function renderOverlay() {
 	    var modal = this.props.modal;
 	
+	    if (!this.state.isOverlayShown) {
+	      return _react2['default'].createElement('span', null);
+	    }
+	
 	    return (0, _react.cloneElement)(modal, {
-	      show: this.state.isOverlayShown,
 	      onHide: this.hide,
 	      onRequestHide: createHideDepreciationWrapper(this.hide),
-	      container: modal.props.container || this.props.container
+	      __isUsedInModalTrigger: true
 	    });
 	  },
 	
@@ -35191,6 +35183,7 @@
 		render: function render() {
 			var _this = this;
 	
+			var i = 0;
 			return React.createElement(
 				Well,
 				null,
@@ -35199,13 +35192,19 @@
 					null,
 					_.map(this.props.model.pictures, function (item, url) {
 						return React.createElement(
-							Col,
-							{ key: url, md: 4, xs: 6, className: 'thumb' },
+							'div',
+							null,
 							React.createElement(
-								'a',
-								{ className: 'thumbnail', href: item.photo },
-								React.createElement('img', { className: 'img-responsive', src: url, onClick: _this.props.openPhotoswipe })
-							)
+								Col,
+								{ key: url, md: 4, xs: 6, className: 'thumb' },
+								React.createElement(
+									'a',
+									{ className: 'thumbnail', href: item.photo },
+									React.createElement('img', { className: 'img-responsive', src: url, onClick: _this.props.openPhotoswipe })
+								)
+							),
+							i % 2 === 1 ? React.createElement('div', { className: 'clearfix hidden-md hidden-lg' }) : '',
+							i++ % 3 === 2 ? React.createElement('div', { className: 'clearfix hidden-xs hidden-sm' }) : ''
 						);
 					})
 				)
