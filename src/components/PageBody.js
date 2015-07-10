@@ -14,13 +14,13 @@ var PageNav = module.exports = React.createClass({
 	componentDidMount: function () {
 		this.props.context.executeAction(actions.loadPictures);
 	},
-	openPhotoswipe: function(e) {
-		if(e){
+	openPhotoswipe: function (index, e) {
+		if (e) {
 			e.preventDefault();
 		}
 		var promises = [];
 		var pswpElement = document.querySelectorAll('.pswp')[0];
-		// build items array
+
 		var items = _.map(this.props.model.pictures, (item)=>{
 			var photo = item.photo;
 			var width = new Q.defer();
@@ -57,13 +57,15 @@ var PageNav = module.exports = React.createClass({
 
 		Q.allSettled(promises).then(()=>{
 			gallery.init();
+			gallery.goTo(index);
 		});
 	},
 	render: function () {
 		return (
 			<div className='page-body container'>
 				<TopWell />
-				{this.props.model.isLoading ? <Well><p>Photos are loading...</p></Well> : <PicasaAlbum {...this.props} openPhotoswipe={this.openPhotoswipe} />}
+				{this.props.model.isLoading ? <Well><p>Photos are loading...</p></Well> :
+					<PicasaAlbum {...this.props} openPhotoswipe={this.openPhotoswipe} />}
 				<Photoswipe {...this.props} openPhotoswipe={this.openPhotoswipe} />
 			</div>
 		);

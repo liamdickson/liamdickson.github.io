@@ -37,7 +37,7 @@ class Store extends BaseStore {
             data.feed.entry.forEach( (pic, i)=>{
                 var thumb = pic.media$group.media$thumbnail[ts];
                 var url = thumb.url;
-                var photo = this.modifyUrl(thumb.url,'s0');
+                var photo = this.modifyUrl(thumb.url,'s2048');
                 var desc = pic.media$group.media$description.$t;
 
                 var pictures = this.model.pictures;

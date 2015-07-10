@@ -44,6 +44,5 @@ var Photoswipe = module.exports = React.createClass({
 			    </div>
 		    </div>
 		);
-		// <button id="btn" onClick={this.props.openPhotoswipe}>Open Photos</button>
 	}
 })
