@@ -8,20 +8,5 @@
 }
 
 .thumb {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
-
-.gallery-box {
-    -moz-column-count: 4;
-    -moz-column-gap: 10px;
-    -webkit-column-count: 4;
-    -webkit-column-gap: 10px;
-    column-count: 4;
-    column-gap: 10px;
-}
-
-.gallery-cell div {
-    display: inline-block;
-    width: 100%;
-    background-color: red;
-}​
