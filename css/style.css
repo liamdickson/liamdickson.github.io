@@ -10,3 +10,19 @@
 .thumb {
     margin-bottom: 10px;
 }
+
+/* Hacky fix for clearfix Well */
+.clearfix-container {
+    display: inline-block;
+}
+.clearfix-container:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
+.clearfix-container {
+    display: block;
+}

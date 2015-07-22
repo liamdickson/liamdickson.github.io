@@ -9,14 +9,13 @@ var PicasaAlbum = module.exports = React.createClass({
 	render: function() {
 		var i = 0;
 		return (
-			<Well>
-				<div className="gallery-box">
+			<Well className="clearfix-container">
 				{_.map(this.props.model.pictures, (item, url)=>{
 					return (
 						<div>
 							<Col key={url} md={4} xs={6} className="thumb">
 								<a className="thumbnail" href={item.photo}>
-									<img className="img-responsive" src={url} onClick={this.props.openPhotoswipe} />
+									<img className="img-responsive" src={url} onClick={partial(this.props.openPhotoswipe,i)} />
 								</a>
 							</Col>
 							{i % 2 === 1 ? <div className="clearfix hidden-md hidden-lg" /> : ''}
@@ -24,7 +23,6 @@ var PicasaAlbum = module.exports = React.createClass({
 						</div>
 					);
 				})}
-				</div>
 			</Well>
 		)
 	}
